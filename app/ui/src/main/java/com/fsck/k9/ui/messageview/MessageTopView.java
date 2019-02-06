@@ -20,6 +20,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.util.Locale; // SOEN 390: added this import in order to detect device language
+
 import com.fsck.k9.Account;
 import com.fsck.k9.Account.ShowPictures;
 import com.fsck.k9.ui.R;
@@ -182,10 +184,24 @@ public class MessageTopView extends LinearLayout {
         if (view.hasHiddenExternalImages() && !showPicturesButtonClicked) {
             showShowPicturesButton();
         }
+        
+        // Check Device and Email language and detect if translation is required
+        String emailLanguage = "de"; // TEMPORARY VARIABLE FOR TESTING ONLY - This will be replaced with language that was detected. Complete list of language test codes: https://www.science.co.il/language/Locale-codes.php
+        String deviceLanguage = Locale.getDefault().getLanguage(); // Note: If getLanguage() does not work, check other options at https://stackoverflow.com/questions/4212320/get-the-current-language-in-device
+        // String deviceLanguage = Resources.getSystem().getConfiguration().locale.getLanguage(); // This is the newer (riskier) way of implementing the above
+        boolean isForeignLanguage = doesDeviceLanguageEqualEmailLanguage(emailLanguage, deviceLanguage);
 
-        // If detected language not same as system language, replace true with boolean
-        if(true && !translateRevertButtonClicked) {
+        if((isForeignLanguage == true) && !translateRevertButtonClicked) {
             showTranslateButton();
+        }
+    }
+
+    // SOEN 390: Method used to detect if device language = email language (for translation)
+    public boolean doesDeviceLanguageEqualEmailLanguage(String str1, String str2){
+        if(str1.equals(str2)) {
+            return true;
+        }else{
+            return false;
         }
     }
 
