@@ -1,6 +1,8 @@
 package com.fsck.k9.ui.messageview;
 
 
+import java.util.Locale; // SOEN 390: added this import in order to detect device language
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
@@ -19,8 +21,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import java.util.Locale; // SOEN 390: added this import in order to detect device language
 
 import com.fsck.k9.Account;
 import com.fsck.k9.Account.ShowPictures;
@@ -198,9 +198,9 @@ public class MessageTopView extends LinearLayout {
 
     // SOEN 390: Method used to detect if device language = email language (for translation)
     public boolean doesDeviceLanguageEqualEmailLanguage(String str1, String str2){
-        if(str1.equals(str2)) {
+        if (str1.equals(str2)) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
